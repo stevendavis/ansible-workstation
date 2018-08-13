@@ -1,0 +1,12 @@
+- name: Install Muscle
+  block:
+    # Create dest directory
+    - file:
+        path: "{{ansible_user_dir}}/software/muscle3.8.31"
+        state: directory
+        recurse: yes
+    # Download and uncompress
+    - unarchive:
+        src="https://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz"
+        dest="{{ansible_user_dir}}/software/muscle3.8.31"
+        copy=no
