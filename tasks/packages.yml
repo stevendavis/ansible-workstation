@@ -3,5 +3,19 @@
     name: "{{item}}"
     state: latest
   with_items:
+    - apt-file
+    - atop
+    - dos2unix
     - htop
+    - iotop
     - gitk
+    - gparted
+    - kdiff3
+    - mafft
+    - meld
+    - python-dev
+    - shunit2
+    - snp-sites
+    - sysstat
+    - tree
+    - gnumeric
