@@ -1,25 +1,22 @@
 - name: Install Muscle
   block:
-    # Create dest directory
+    # Create Muscle dest directory
     - file:
         path: "{{ansible_user_dir}}/software/muscle3.8.31"
         state: directory
         recurse: yes
-
-    # Download and uncompress
+    # Download and uncompress Muscle
     - unarchive:
         src="https://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz"
         dest="{{ansible_user_dir}}/software/muscle3.8.31"
         creates="{{ansible_user_dir}}/software/muscle3.8.31/muscle3.8.31_i86linux64"
         copy=no
-
     # Create "muscle" symlink
     - file:
-        src: "{{ansible_user_dir}}/software/muscle3.8.31/muscle3.8.31_i86linux64"
+        src: "muscle3.8.31_i86linux64"
         dest: "{{ansible_user_dir}}/software/muscle3.8.31/muscle"
         state: link
-
-    # Add path to .bashrc if it does not exist
+    # Add Muscle to path in .bashrc if it does not exist
     - lineinfile:
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/muscle3.8.31"
