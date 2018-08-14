@@ -20,3 +20,24 @@
     - lineinfile:
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/muscle3.8.31"
+
+
+- name: Install Mugsy
+  block:
+    # Download and uncompress Mugsy
+    - unarchive:
+        src="https://sourceforge.net/projects/mugsy/files/mugsy_x86-64-v1r2.3.tgz/download"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3"
+        copy=no
+    # Update Mugsy env script -- replace existing line
+    - lineinfile:
+        path: "{{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3/mugsyenv.sh"
+        line: "export MUGSY_INSTALL={{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3"
+        regexp: "export MUGSY_INSTALL"
+    # Add Mugsy env script to .bashrc if it does not exist
+    - blockinfile:
+        path: ~/.bashrc
+        block: |
+          # Mugsy
+          source ~/software/mugsy_x86-64-v1r2.3/mugsyenv.sh
