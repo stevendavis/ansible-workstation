@@ -13,6 +13,7 @@
     - kdiff3
     - mafft
     - meld
+    - mummer
     - perl-doc
     - python-dev
     - shunit2
