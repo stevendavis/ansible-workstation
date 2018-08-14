@@ -13,6 +13,7 @@
     - kdiff3
     - mafft
     - meld
+    - perl-doc
     - python-dev
     - shunit2
     - snp-sites
