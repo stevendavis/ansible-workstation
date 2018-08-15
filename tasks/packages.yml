@@ -11,6 +11,7 @@
     - gitk
     - gparted
     - kdiff3
+    - liblzo2-dev
     - mafft
     - meld
     - mummer
