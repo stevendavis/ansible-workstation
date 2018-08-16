@@ -1,6 +1,12 @@
 - hosts: localhost
   connection: local
   pre_tasks:
+    - name: add repositories
+      become: true
+      apt_repository:
+        repo: ppa:git-core/ppa
+        state: present
+
     - name: update repositories
       become: true
       apt: update_cache=yes
