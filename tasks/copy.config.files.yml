@@ -1,0 +1,6 @@
+- name: copy files
+  copy: 
+    src=config-files/.bash_aliases
+    dest="{{ansible_user_dir}}/.bash_aliases"
+    force=no
+    mode=preserve
