@@ -41,3 +41,25 @@
         block: |
           # Mugsy
           source ~/software/mugsy_x86-64-v1r2.3/mugsyenv.sh
+
+- name: Install Samtools
+  block:
+    # Download and uncompress Samtools
+    - unarchive:
+        src="https://sourceforge.net/projects/samtools/files/samtools/1.4/samtools-1.4.tar.bz2"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/samtools-1.4"
+        copy=no
+    - unarchive:
+        src="https://sourceforge.net/projects/samtools/files/samtools/1.8/samtools-1.8.tar.bz2"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/samtools-1.8"
+        copy=no
+    - make:
+        chdir: "{{ansible_user_dir}}/software/samtools-1.4"
+    - make:
+        chdir: "{{ansible_user_dir}}/software/samtools-1.8"
+    # Add Samtools to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/samtools-1.8:~/software/samtools-1.8/misc"
