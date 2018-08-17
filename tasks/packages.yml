@@ -12,6 +12,7 @@
     - gitk
     - gparted
     - kdiff3
+    - libfreetype6-dev
     - liblzo2-dev
     - mafft
     - meld
@@ -24,3 +25,4 @@
     - tree
     - gnumeric
   become: true
+
