@@ -1,3 +1,20 @@
+- name: Install ART
+  block:
+    # Download and uncompress ART
+    - command: wget --referer=https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm  https://www.niehs.nih.gov/research/resources/assets/docs/artbinmountrainier2016.06.05linux64.tgz
+      args:
+        chdir: "~/Downloads"
+        creates: "~/Downloads/artbinmountrainier2016.06.05linux64.tgz"
+    - unarchive:
+        src="~/Downloads/artbinmountrainier2016.06.05linux64.tgz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/art_bin_MountRainier"
+        copy=no
+    # Add ART to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/art_bin_MountRainier"
+
 - name: Install Bcftools
   block:
     # Download and uncompress Bcftools
