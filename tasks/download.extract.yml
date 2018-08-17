@@ -1,3 +1,53 @@
+- name: Install Bcftools
+  block:
+    # Download and uncompress Bcftools
+    - unarchive:
+        src="https://github.com/samtools/bcftools/releases/download/1.8/bcftools-1.8.tar.bz2"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/bcftools-1.8"
+        copy=no
+    - make:
+        chdir: "{{ansible_user_dir}}/software/bcftools-1.8"
+    # Add Bcftools to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/bcftools-1.8"
+
+- name: Install htslib (bgzip and tabix)
+  block:
+    # Download and uncompress htslib
+    - unarchive:
+        src="https://github.com/samtools/htslib/releases/download/1.8/htslib-1.8.tar.bz2"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/htslib-1.8"
+        copy=no
+    - make:
+        chdir: "{{ansible_user_dir}}/software/htslib-1.8"
+    - make:
+        chdir: "{{ansible_user_dir}}/software/htslib-1.8"
+        target: install
+      become: yes
+
+- name: Install Mugsy
+  block:
+    # Download and uncompress Mugsy
+    - unarchive:
+        src="https://sourceforge.net/projects/mugsy/files/mugsy_x86-64-v1r2.3.tgz/download"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3"
+        copy=no
+    # Update Mugsy env script -- replace existing line
+    - lineinfile:
+        path: "{{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3/mugsyenv.sh"
+        line: "export MUGSY_INSTALL={{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3"
+        regexp: "export MUGSY_INSTALL"
+    # Add Mugsy env script to .bashrc if it does not exist
+    - blockinfile:
+        path: ~/.bashrc
+        block: |
+          # Mugsy
+          source ~/software/mugsy_x86-64-v1r2.3/mugsyenv.sh
+
 - name: Install Muscle
   block:
     # Create Muscle dest directory
@@ -21,27 +71,6 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/muscle3.8.31"
 
-
-- name: Install Mugsy
-  block:
-    # Download and uncompress Mugsy
-    - unarchive:
-        src="https://sourceforge.net/projects/mugsy/files/mugsy_x86-64-v1r2.3.tgz/download"
-        dest="{{ansible_user_dir}}/software"
-        creates="{{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3"
-        copy=no
-    # Update Mugsy env script -- replace existing line
-    - lineinfile:
-        path: "{{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3/mugsyenv.sh"
-        line: "export MUGSY_INSTALL={{ansible_user_dir}}/software/mugsy_x86-64-v1r2.3"
-        regexp: "export MUGSY_INSTALL"
-    # Add Mugsy env script to .bashrc if it does not exist
-    - blockinfile:
-        path: ~/.bashrc
-        block: |
-          # Mugsy
-          source ~/software/mugsy_x86-64-v1r2.3/mugsyenv.sh
-
 - name: Install Samtools
   block:
     # Download and uncompress Samtools
@@ -63,3 +92,4 @@
     - lineinfile:
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/samtools-1.8:~/software/samtools-1.8/misc"
+
