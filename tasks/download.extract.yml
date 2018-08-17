@@ -26,6 +26,7 @@
     - make:
         chdir: "{{ansible_user_dir}}/software/htslib-1.8"
         target: install
+      changed_when: false
       become: yes
 
 - name: Install Mugsy
@@ -92,4 +93,25 @@
     - lineinfile:
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/samtools-1.8:~/software/samtools-1.8/misc"
+
+- name: Install smalt
+  block:
+    # Download and uncompress smalt
+    - unarchive:
+        src="https://sourceforge.net/projects/smalt/files/smalt-0.7.6-static.tar.gz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/smalt-0.7.6"
+        copy=no
+    - name: configure
+      command: ./configure
+      args:
+        chdir: "{{ansible_user_dir}}/software/smalt-0.7.6"
+      changed_when: false
+    - make:
+        chdir: "{{ansible_user_dir}}/software/smalt-0.7.6"
+    - make:
+        chdir: "{{ansible_user_dir}}/software/smalt-0.7.6"
+        target: install
+      changed_when: false
+      become: yes
 
