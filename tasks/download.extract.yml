@@ -89,6 +89,29 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/muscle3.8.31"
 
+- name: Install Picard
+  block:
+    # Create Picard dest directory
+    - file:
+        path: "{{ansible_user_dir}}/software/picard.2.18.4"
+        state: directory
+        recurse: yes
+    - file:
+        path: "{{ansible_user_dir}}/software/picard.2.18.11"
+        state: directory
+        recurse: yes
+    # Download Picard
+    -  get_url:
+        url: "https://github.com/broadinstitute/picard/releases/download/2.18.4/picard.jar"
+        dest: "{{ansible_user_dir}}/software/picard.2.18.11"
+    -  get_url:
+        url: "https://github.com/broadinstitute/picard/releases/download/2.18.11/picard.jar"
+        dest: "{{ansible_user_dir}}/software/picard.2.18.11"
+    # Add Picard to classpath in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export CLASSPATH=~/software/picard.2.18.11/picard.jar:$CLASSPATH"
+
 - name: Install Samtools
   block:
     # Download and uncompress Samtools
