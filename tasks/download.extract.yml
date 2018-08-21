@@ -103,7 +103,7 @@
     # Download Picard
     -  get_url:
         url: "https://github.com/broadinstitute/picard/releases/download/2.18.4/picard.jar"
-        dest: "{{ansible_user_dir}}/software/picard.2.18.11"
+        dest: "{{ansible_user_dir}}/software/picard.2.18.4"
     -  get_url:
         url: "https://github.com/broadinstitute/picard/releases/download/2.18.11/picard.jar"
         dest: "{{ansible_user_dir}}/software/picard.2.18.11"
