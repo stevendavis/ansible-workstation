@@ -155,3 +155,18 @@
       changed_when: false
       become: yes
 
+- name: Install VarScan
+  block:
+    # Create VarScan dest directory
+    - file:
+        path: "{{ansible_user_dir}}/software/varscan.v2.3.9"
+        state: directory
+        recurse: yes
+    # Download VarScan
+    -  get_url:
+        url: "https://sourceforge.net/projects/varscan/files/VarScan.v2.3.9.jar/download"
+        dest: "{{ansible_user_dir}}/software/varscan.v2.3.9/VarScan.jar"
+    # Add VarScan to classpath in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export CLASSPATH=~/software/varscan.v2.3.9/VarScan.jar:$CLASSPATH"
