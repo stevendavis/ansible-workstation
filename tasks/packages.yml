@@ -12,6 +12,7 @@
     - gitk
     - gparted
     - kdiff3
+    - leafpad
     - libfreetype6-dev
     - liblzo2-dev
     - mafft
