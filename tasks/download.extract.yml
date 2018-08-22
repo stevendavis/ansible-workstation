@@ -1,3 +1,16 @@
+- name: Install Aliview
+  block:
+    # Download and uncompress Aliview
+    - unarchive:
+        src="http://www.ormbunkar.se/aliview/downloads/linux/linux-versions-all/linux-version-1.23/aliview.tgz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/aliview"
+        copy=no
+    # Add Aliview to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/aliview"
+
 - name: Install ART
   block:
     # Download and uncompress ART
