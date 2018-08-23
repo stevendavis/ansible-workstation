@@ -71,7 +71,13 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/fastx-toolkit"
 
+- name: Check for existing htslib installation
+  stat:
+    path: "{{ansible_user_dir}}/software/htslib-1.8"
+  register: htslib_bin_directory
+
 - name: Install htslib (bgzip and tabix)
+  when: not htslib_bin_directory.stat.exists
   block:
     # Download and uncompress htslib
     - unarchive:
@@ -84,7 +90,6 @@
     - make:
         chdir: "{{ansible_user_dir}}/software/htslib-1.8"
         target: install
-      changed_when: false
       become: yes
 
 - name: Install Mugsy
@@ -188,7 +193,13 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/seaview"
 
+- name: Check for existing smalt installation
+  stat:
+    path: "{{ansible_user_dir}}/software/smalt-0.7.6"
+  register: smalt_bin_directory
+
 - name: Install smalt
+  when: not smalt_bin_directory.stat.exists
   block:
     # Download and uncompress smalt
     - unarchive:
@@ -200,13 +211,11 @@
       command: ./configure
       args:
         chdir: "{{ansible_user_dir}}/software/smalt-0.7.6"
-      changed_when: false
     - make:
         chdir: "{{ansible_user_dir}}/software/smalt-0.7.6"
     - make:
         chdir: "{{ansible_user_dir}}/software/smalt-0.7.6"
         target: install
-      changed_when: false
       become: yes
 
 - name: Install VarScan
