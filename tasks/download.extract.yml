@@ -56,6 +56,20 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/bowtie2-2.3.4.1-linux-x86_64"
 
+- name: Install FastQC
+  block:
+    # Download and uncompress FastQC
+    - unarchive:
+        src="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.7.zip"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/FastQC"
+        mode=u+rwx
+        copy=no
+    # Add FastQC to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/FastQC"
+
 - name: Install Fastx Toolkit
   block:
     # Download and uncompress Fastx Toolkit
