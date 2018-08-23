@@ -4,8 +4,11 @@
     - name: add repositories
       become: true
       apt_repository:
-        repo: ppa:git-core/ppa
+        repo: "{{item}}"
         state: present
+      with_items:
+        - ppa:git-core/ppa
+        - ppa:tualatrix
 
     - name: update repositories
       become: true
