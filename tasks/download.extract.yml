@@ -28,6 +28,28 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/art_bin_MountRainier"
 
+- name: Check for existing BamUtil installation
+  stat:
+    path: "{{ansible_user_dir}}/software/bamUtil_1.0.13/bamUtil/bin"
+  register: bamUtil_bin_directory
+
+- name: Install BamUtil
+  when: not bamUtil_bin_directory.stat.exists
+  block:
+    # Download and uncompress BamUtil
+    - unarchive:
+        src="https://genome.sph.umich.edu/w/images/7/70/BamUtilLibStatGen.1.0.13.tgz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/bamUtil_1.0.13"
+        copy=no
+    - make:
+        chdir: "{{ansible_user_dir}}/software/bamUtil_1.0.13"
+        target: all
+    # Add BamUtil to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/bamUtil_1.0.13/bamUtil/bin"
+
 - name: Install Bcftools
   block:
     # Download and uncompress Bcftools
