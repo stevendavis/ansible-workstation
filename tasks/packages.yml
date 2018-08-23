@@ -11,6 +11,7 @@
     - git
     - gitk
     - gparted
+    - graphviz
     - kdiff3
     - leafpad
     - libfreetype6-dev
