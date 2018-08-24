@@ -128,7 +128,13 @@
         target: install
       become: yes
 
+- name: Check for existing Jellyfish installation
+  stat:
+    path: "{{ansible_user_dir}}/software/jellyfish-2.2.10/jellyfish"
+  register: jellyfish_exe
+
 - name: Install Jellyfish
+  when: not jellyfish_exe.stat.exists
   block:
     # Create Jellyfish dest directory
     - file:
