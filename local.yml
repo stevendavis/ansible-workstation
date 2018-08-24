@@ -8,7 +8,6 @@
         state: present
       with_items:
         - ppa:git-core/ppa
-        - ppa:tualatrix
 
     - name: update repositories
       become: true

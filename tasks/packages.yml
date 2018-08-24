@@ -26,6 +26,5 @@
     - snp-sites
     - sysstat
     - tree
-    - ubuntu-tweak
   become: true
 
