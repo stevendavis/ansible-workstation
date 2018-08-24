@@ -128,6 +128,28 @@
         target: install
       become: yes
 
+- name: Install Jellyfish
+  block:
+    # Create Jellyfish dest directory
+    - file:
+        path: "{{ansible_user_dir}}/software/jellyfish-2.2.10"
+        state: directory
+        recurse: yes
+    # Download Jellyfish
+    - get_url:
+        url: "https://github.com/gmarcais/Jellyfish/releases/download/v2.2.10/jellyfish-linux"
+        dest: "{{ansible_user_dir}}/software/jellyfish-2.2.10"
+        mode: u+rwx
+    # Rename the executable
+    - command: mv "{{ansible_user_dir}}/software/jellyfish-2.2.10/jellyfish-linux"
+                  "{{ansible_user_dir}}/software/jellyfish-2.2.10/jellyfish"
+                  creates="{{ansible_user_dir}}/software/jellyfish-2.2.10/jellyfish"
+                  removes="{{ansible_user_dir}}/software/jellyfish-2.2.10/jellyfish-linux"
+    # Add Jellyfish to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/jellyfish-2.2.10/"
+
 - name: Install Mugsy
   block:
     # Download and uncompress Mugsy
