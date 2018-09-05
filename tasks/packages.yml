@@ -5,9 +5,12 @@
   with_items:
     - apt-file
     - atop
+    - autoconf
+    - automake
     - dos2unix
     - htop
     - iotop
+    - gcc
     - git
     - gitk
     - gnumeric
@@ -15,16 +18,24 @@
     - graphviz
     - kdiff3
     - leafpad
+    - libcurl4-gnutls-dev
     - libfreetype6-dev
+    - libncurses5-dev
+    - libssl-dev
+    - liblzma-dev
     - liblzo2-dev
+    - libbz2-dev
+    - make
     - mafft
     - meld
     - mummer
+    - perl
     - perl-doc
     - python-dev
     - shunit2
     - snp-sites
     - sysstat
     - tree
+    - zlib1g-dev
   become: true
 

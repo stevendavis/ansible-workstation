@@ -50,6 +50,27 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/bamUtil_1.0.13/bamUtil/bin"
 
+- name: Check for existing htslib installation
+  stat:
+    path: "{{ansible_user_dir}}/software/htslib-1.8"
+  register: htslib_bin_directory
+
+- name: Install htslib (bgzip and tabix)
+  when: not htslib_bin_directory.stat.exists
+  block:
+    # Download and uncompress htslib
+    - unarchive:
+        src="https://github.com/samtools/htslib/releases/download/1.8/htslib-1.8.tar.bz2"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/htslib-1.8"
+        copy=no
+    - make:
+        chdir: "{{ansible_user_dir}}/software/htslib-1.8"
+    - make:
+        chdir: "{{ansible_user_dir}}/software/htslib-1.8"
+        target: install
+      become: yes
+
 - name: Install Bcftools
   block:
     # Download and uncompress Bcftools
@@ -106,27 +127,6 @@
     - lineinfile:
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/fastx-toolkit"
-
-- name: Check for existing htslib installation
-  stat:
-    path: "{{ansible_user_dir}}/software/htslib-1.8"
-  register: htslib_bin_directory
-
-- name: Install htslib (bgzip and tabix)
-  when: not htslib_bin_directory.stat.exists
-  block:
-    # Download and uncompress htslib
-    - unarchive:
-        src="https://github.com/samtools/htslib/releases/download/1.8/htslib-1.8.tar.bz2"
-        dest="{{ansible_user_dir}}/software"
-        creates="{{ansible_user_dir}}/software/htslib-1.8"
-        copy=no
-    - make:
-        chdir: "{{ansible_user_dir}}/software/htslib-1.8"
-    - make:
-        chdir: "{{ansible_user_dir}}/software/htslib-1.8"
-        target: install
-      become: yes
 
 - name: Check for existing Jellyfish installation
   stat:
