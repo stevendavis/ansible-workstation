@@ -47,6 +47,12 @@
         dest="{{ansible_user_dir}}/software"
         creates="{{ansible_user_dir}}/software/bamUtil_1.0.13"
         copy=no
+    # Do not treat warnings as errors
+    - replace:
+        path: "{{ansible_user_dir}}/software/bamUtil_1.0.13/libStatGen/general/Makefile"
+        regexp: '-Werror'
+        replace: ''
+        backup: yes
     - make:
         chdir: "{{ansible_user_dir}}/software/bamUtil_1.0.13"
         target: all
