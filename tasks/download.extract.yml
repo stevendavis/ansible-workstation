@@ -139,6 +139,35 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/fastx-toolkit"
 
+- name: Install Figtree
+  block:
+    # Download Figtree
+    - get_url:
+        url: "http://tree.bio.ed.ac.uk/download.php?id=96&num=3"
+        dest: "{{ansible_user_dir}}/Downloads/"
+    # Uncompress figtree
+    - unarchive:
+        src="{{ansible_user_dir}}/Downloads/FigTree_v1.4.3.tgz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/FigTree_v1.4.3"
+    # Update figtree script with correct jar file location -- replace existing line
+    - lineinfile:
+        path: "{{ansible_user_dir}}/software/FigTree_v1.4.3/bin/figtree"
+        regexp: "jar lib/figtree.jar"
+        state: "absent"
+    - lineinfile:
+        path: "{{ansible_user_dir}}/software/FigTree_v1.4.3/bin/figtree"
+        line: "java -Xms64m -Xmx512m -jar {{ansible_user_dir}}/software/FigTree_v1.4.3/lib/figtree.jar"
+        state: "present"
+    # Make the launch script executable
+    - file:
+        path: "{{ansible_user_dir}}/software/FigTree_v1.4.3/bin/figtree"
+        mode: u+rwx
+    # Add Figtree to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/FigTree_v1.4.3/bin"
+
 - name: Check for existing Jellyfish installation
   stat:
     path: "{{ansible_user_dir}}/software/jellyfish-2.2.10/jellyfish"
