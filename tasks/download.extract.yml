@@ -144,7 +144,7 @@
     # Download Figtree
     - get_url:
         url: "http://tree.bio.ed.ac.uk/download.php?id=96&num=3"
-        dest: "{{ansible_user_dir}}/Downloads/"
+        dest: "{{ansible_user_dir}}/Downloads/FigTree_v1.4.3.tgz"
     # Uncompress figtree
     - unarchive:
         src="{{ansible_user_dir}}/Downloads/FigTree_v1.4.3.tgz"
