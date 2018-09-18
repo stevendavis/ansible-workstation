@@ -61,6 +61,19 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/bamUtil_1.0.13/bamUtil/bin"
 
+- name: Install HarvestTools
+  block:
+    # Download and uncompress HarvestTools
+    - unarchive:
+        src="https://github.com/marbl/harvest-tools/releases/download/v1.2/harvesttools-Linux64-v1.2.tar.gz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/harvesttools-Linux64-v1.2"
+        copy=no
+    # Add HarvestTools to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/harvesttools-Linux64-v1.2"
+
 - name: Check for existing htslib installation
   stat:
     path: "{{ansible_user_dir}}/software/htslib-1.8"
