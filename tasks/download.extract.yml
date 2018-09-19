@@ -168,6 +168,19 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/FigTree_v1.4.3/bin"
 
+- name: Install Gingr
+  block:
+    # Download and uncompress Gingr
+    - unarchive:
+        src="https://github.com/marbl/gingr/releases/download/v1.2/gingr-Linux64-v1.2.tar.gz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/gingr-Linux64-v1.2"
+        copy=no
+    # Add Gingr to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/gingr-Linux64-v1.2"
+
 - name: Install HarvestTools
   block:
     # Download and uncompress HarvestTools
