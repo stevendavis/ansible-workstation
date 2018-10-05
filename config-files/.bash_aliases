@@ -9,5 +9,5 @@ path_append ()  { path_remove $1; export PATH="$PATH:$1"; }
 path_prepend () { path_remove $1; export PATH="$1:$PATH"; }
 path_remove ()  { export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`; }
 
-anaconda_load () { path_prepend "/home/steven.davis/software/anaconda/bin"; }
-anaconda_unload () { path_remove "/home/steven.davis/software/anaconda/bin"; }
+anaconda_load () { path_prepend "$HOME/software/anaconda/bin"; }
+anaconda_unload () { path_remove "$HOME/software/anaconda/bin"; }
