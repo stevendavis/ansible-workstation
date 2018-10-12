@@ -301,6 +301,39 @@
         path: ~/.bashrc
         line: "export CLASSPATH=~/software/picard.2.18.11/picard.jar:$CLASSPATH"
 
+- name: Check for existing RAxML installation
+  stat:
+    path: "{{ansible_user_dir}}/software/standard-RAxML-8.2.12/raxml"
+  register: raxml_executable
+
+- name: Install RAxML
+  when: not raxml_executable.stat.exists
+  block:
+    # Download and uncompress RAxML
+    - unarchive:
+        src="https://github.com/stamatak/standard-RAxML/archive/v8.2.12.tar.gz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/standard-RAxML-8.2.12"
+        copy=no
+    - make:
+        chdir: "{{ansible_user_dir}}/software/standard-RAxML-8.2.12"
+        file: Makefile.AVX.PTHREADS.gcc
+    # Create RAxML symlink
+    - file:
+        src: "raxmlHPC-PTHREADS-AVX"
+        dest: "{{ansible_user_dir}}/software/standard-RAxML-8.2.12/raxml"
+        state: link
+    - name: Clean RAxML object files
+      file:
+        state: absent
+        path: "{{ item }}"
+      with_fileglob:
+        - "{{ansible_user_dir}}/software/standard-RAxML-8.2.12/*.o"
+    # Add RAxML to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/standard-RAxML-8.2.12"
+
 - name: Install Samtools
   block:
     # Download and uncompress Samtools
