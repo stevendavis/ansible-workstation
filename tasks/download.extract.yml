@@ -194,6 +194,19 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/harvesttools-Linux64-v1.2"
 
+- name: Install IQTree
+  block:
+    # Download and uncompress IQTree
+    - unarchive:
+        src="https://github.com/Cibiv/IQ-TREE/releases/download/v1.6.7.1/iqtree-1.6.7.1-Linux.tar.gz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/iqtree-1.6.7.1-Linux"
+        copy=no
+    # Add IQTree to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/iqtree-1.6.7.1-Linux/bin"
+
 - name: Check for existing Jellyfish installation
   stat:
     path: "{{ansible_user_dir}}/software/jellyfish-2.2.10/jellyfish"
