@@ -7,7 +7,7 @@
   block:
     # Download and uncompress Aliview
     - unarchive:
-        src="http://www.ormbunkar.se/aliview/downloads/linux/linux-versions-all/linux-version-1.23/aliview.tgz"
+        src="http://www.ormbunkar.se/aliview/downloads/linux/linux-versions-all/linux-version-1.24/aliview.tgz"
         dest="{{ansible_user_dir}}/software"
         creates="{{ansible_user_dir}}/software/aliview"
         copy=no
