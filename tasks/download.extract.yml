@@ -235,6 +235,19 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/jellyfish-2.2.10/"
 
+- name: Install Mauve
+  block:
+    # Download and uncompress Mauve
+    - unarchive:
+        src="http://darlinglab.org/mauve/snapshots/2015/2015-02-13/linux-x64/mauve_linux_snapshot_2015-02-13.tar.gz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/mauve_snapshot_2015-02-13"
+        copy=no
+    # Add Mauve to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/mauve_snapshot_2015-02-13"
+
 - name: Install Mugsy
   block:
     # Download and uncompress Mugsy
