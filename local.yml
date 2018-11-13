@@ -8,6 +8,7 @@
         state: present
       with_items:
         - ppa:git-core/ppa
+        - ppa:deadsnakes/ppa
 
     - name: update repositories
       become: true

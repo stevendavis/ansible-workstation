@@ -32,6 +32,8 @@
     - perl
     - perl-doc
     - python-dev
+    - python3.4
+    - python3.4-dev
     - shunit2
     - snp-sites
     - sysstat
