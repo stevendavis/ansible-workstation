@@ -194,6 +194,24 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/harvesttools-Linux64-v1.2"
 
+- name: Install IGV
+  block:
+    # Download and uncompress IGV
+    - unarchive:
+        src="http://data.broadinstitute.org/igv/projects/downloads/2.4/IGV_2.4.18.zip"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/IGV_2.4.18"
+        copy=no
+    # Create "igv" symlink
+    - file:
+        src: "igv.sh"
+        dest: "{{ansible_user_dir}}/software/IGV_2.4.18/igv"
+        state: link
+    # Add IGV to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/IGV_2.4.18"
+
 - name: Install IQTree
   block:
     # Download and uncompress IQTree
