@@ -35,6 +35,7 @@
     - python3.4
     - python3.4-dev
     - python3.6-dev
+    - python3-tk
     - shunit2
     - snp-sites
     - sysstat
