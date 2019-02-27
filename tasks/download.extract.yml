@@ -282,8 +282,10 @@
     # Add Mugsy env script to .bashrc if it does not exist
     - blockinfile:
         path: ~/.bashrc
+        marker_begin: "BEGIN mugsy"
+        marker_end: "END mugsy"
         block: |
-          # Mugsy
+          # Init mugsy
           source ~/software/mugsy_x86-64-v1r2.3/mugsyenv.sh
 
 - name: Install Muscle
@@ -344,6 +346,31 @@
     - lineinfile:
         path: ~/.bashrc
         line: "export CLASSPATH=~/software/picard.2.18.11/picard.jar:$CLASSPATH"
+
+- name: Install pyenv
+  block:
+    # Clone the pyenv git repo
+    - git:
+        repo: "https://github.com/pyenv/pyenv.git"
+        dest: ~/.pyenv
+    # Define PYENV_ROOT in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PYENV_ROOT=\"$HOME/.pyenv\""
+    # Add pyenv to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=\"$PYENV_ROOT/bin:$PATH\""
+    # Add pyenv init to .bashrc if it does not exist
+    - blockinfile:
+        path: ~/.bashrc
+        marker_begin: "BEGIN pyenv"
+        marker_end: "END pyenv"
+        block: |
+          # Init pyenv
+          if command -v pyenv 1>/dev/null 2>&1; then
+            eval "$(pyenv init -)"
+          fi
 
 - name: Check for existing RAxML installation
   stat:

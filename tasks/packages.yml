@@ -7,20 +7,25 @@
     - atop
     - autoconf
     - automake
+    - curl
     - dos2unix
     - htop
     - iotop
     - gcc
     - git
     - gitk
+    - git-core
     - gnumeric
     - gparted
     - graphviz
     - kdiff3
     - leafpad
     - libcurl4-gnutls-dev
+    - libffi-dev
     - libfreetype6-dev
     - libncurses5-dev
+    - libreadline-dev
+    - libsqlite3-dev
     - libssl-dev
     - liblzma-dev
     - liblzo2-dev
