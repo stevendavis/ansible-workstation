@@ -379,6 +379,13 @@
         repo: "https://github.com/pyenv/pyenv-virtualenv.git"
         dest: ~/.pyenv/plugins/pyenv-virtualenv
 
+- name: Install pyenv-virtualenvwrapper
+  block:
+    # Clone the pyenv-virtualenvwrapper git repo into the pyenv repo
+    - git:
+        repo: "https://github.com/pyenv/pyenv-virtualenvwrapper.git"
+        dest: ~/.pyenv/plugins/pyenv-virtualenvwrapper
+
 - name: Check for existing RAxML installation
   stat:
     path: "{{ansible_user_dir}}/software/standard-RAxML-8.2.12/raxml"
