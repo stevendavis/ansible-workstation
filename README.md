@@ -26,6 +26,7 @@ sudo ansible-pull -U https://github.com/stevendavis/ansible-workstation.git
 
 If you see permission errors, try this:
 ```
+sudo bash -c 'chown -R ${SUDO_USER} /etc/ansible'
 sudo bash -c 'chown ${SUDO_USER} /home/${SUDO_USER}/.ansible'
 sudo bash -c 'chown ${SUDO_USER} /home/${SUDO_USER}/.ansible/pull'
 sudo bash -c 'chown ${SUDO_USER} /home/${SUDO_USER}/.ansible/tmp'
