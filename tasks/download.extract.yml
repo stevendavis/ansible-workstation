@@ -492,6 +492,15 @@
         target: install
       become: yes
 
+- name: Install Sublime Text editor
+  block:
+    - get_url:
+        url: "https://download.sublimetext.com/sublime-text_build-3207_amd64.deb"
+        dest: "{{ansible_user_dir}}/Downloads/sublime-text_build-3207_amd64.deb"
+    - apt:
+        deb: "{{ansible_user_dir}}/Downloads/sublime-text_build-3207_amd64.deb"
+      become: true
+
 - name: Install VarScan
   block:
     # Create VarScan dest directory
