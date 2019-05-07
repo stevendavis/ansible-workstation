@@ -15,6 +15,7 @@
       changed_when: False
 
   tasks:
+    - include: tasks/git.yml
     - include: tasks/copy.config.files.yml
     - include: tasks/packages.yml
     - include: tasks/download.extract.yml

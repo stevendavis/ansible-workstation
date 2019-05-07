@@ -1,0 +1,55 @@
+- name: Configure ~/.gitignore_global
+  copy:
+    dest: ~/.gitignore_global
+    content: |
+      # Backup files
+      *~
+      *.bak
+      *.save
+
+
+- git_config:
+    name: credential.helper
+    scope: global
+    value: store
+
+- git_config:
+    name: alias.lg
+    scope: global
+    value: "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+- git_config:
+    name: alias.l1
+    scope: global
+    value: "log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit"
+
+- git_config:
+    name: diff.tool
+    scope: global
+    value: meld
+
+- git_config:
+    name: difftool.prompt
+    scope: global
+    value: false
+
+- git_config:
+    name: merge.tool
+    scope: global
+    value: meld
+
+- git_config:
+    name: core.editor
+    scope: global
+    value: nano
+
+- git_config:
+    name: core.excludesfile
+    scope: global
+    value: ~/.gitignore_global
+
+- git_config:
+    name: rerere.enabled
+    scope: global
+    value: true
+
