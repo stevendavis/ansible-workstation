@@ -9,3 +9,32 @@
     - 3.5.6
     - 3.6.8
     - 3.7.2
+
+- name: Make Python 3.6.8 global
+  shell: pyenv global 3.6.8
+
+- name: Create custom python virtualenv to avoid contaminating the system python
+  shell: pyenv virtualenv 3.6.8  CustomPy-3.6
+    creates="{{ansible_user_dir}}/.pyenv/versions/CustomPy-3.6"
+
+- name: Install packages in CustomPy-3.6
+  pip:
+    name:
+      - cookiecutter
+      - flake8
+      - sphinx
+      - sphinx_rtd_theme
+      - tox
+      - virtualenvwrapper
+    virtualenv: "{{ansible_user_dir}}/.pyenv/versions/CustomPy-3.6"
+    virtualenv_command: "{{ansible_user_dir}}/.pyenv/bin/pyenv virtualenv 3.6.8  CustomPy-3.6"
+
+- name: Enable virtualenvwrapper with pyenv
+  blockinfile:
+    path: ~/.bashrc
+    marker_begin: "BEGIN pyenv virtualenvwrapper"
+    marker_end: "END pyenv virtualenvwrapper"
+    block: |
+      # Init virtualenvwrapper running under pyenv
+      pyenv activate CustomPy-3.6
+      pyenv virtualenvwrapper
