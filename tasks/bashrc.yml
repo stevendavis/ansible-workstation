@@ -1,0 +1,7 @@
+- name: Store timestamps in command history
+  lineinfile:
+    path: ~/.bashrc
+    regexp: '^HISTTIMEFORMAT'
+    insertafter: HISTFILESIZE
+    line: 'HISTTIMEFORMAT="%Y-%m-%d %T "'
+

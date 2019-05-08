@@ -20,3 +20,4 @@
     - include: tasks/packages.yml
     - include: tasks/download.extract.yml
     - include: tasks/python.yml
+    - include: tasks/bashrc.yml
