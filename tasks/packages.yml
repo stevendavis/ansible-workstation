@@ -35,6 +35,7 @@
     - mafft
     - meld
     - mummer
+    - parallel
     - perl
     - perl-doc
     - python-dev
