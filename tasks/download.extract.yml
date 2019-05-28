@@ -263,6 +263,23 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/jellyfish-2.2.10/"
 
+- name: Install KMC
+  block:
+    - name: Create kmc software directory
+      file:
+        path: "{{ansible_user_dir}}/software/kmc"
+        state: directory
+    # Download and uncompress KMC
+    - unarchive:
+        src="https://github.com/refresh-bio/KMC/releases/download/v3.0.0/KMC3.linux.tar.gz"
+        dest="{{ansible_user_dir}}/software/kmc"
+        creates="{{ansible_user_dir}}/software/kmc/kmc_tools"
+        copy=no
+    # Add KMC to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/kmc"
+
 - name: Install Mauve
   block:
     # Download and uncompress Mauve
