@@ -117,6 +117,7 @@
         dest: "{{ansible_user_dir}}/Downloads/google-chrome-stable_current_amd64.deb"
     - apt:
         deb: "{{ansible_user_dir}}/Downloads/google-chrome-stable_current_amd64.deb"
+        force: yes
       become: true
 
 - name: Install FastQC
