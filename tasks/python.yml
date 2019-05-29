@@ -51,6 +51,7 @@
 
 - name: Make Python 3.6.8 global
   shell: pyenv global 3.6.8
+  changed_when: false
 
 - name: Create custom python virtualenv to avoid contaminating the system python
   shell: pyenv virtualenv 3.6.8  CustomPy-3.6
