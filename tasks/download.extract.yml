@@ -110,14 +110,20 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/bowtie2-2.3.4.1-linux-x86_64"
 
+- name: Check for existing Chrome browser installation
+  shell: google-chrome --version
+  register: google_chrome_result
+  ignore_errors: yes
+  changed_when: false
+
 - name: Install Chrome browser
+  when: google_chrome_result is failed
   block:
     - get_url:
         url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
         dest: "{{ansible_user_dir}}/Downloads/google-chrome-stable_current_amd64.deb"
     - apt:
         deb: "{{ansible_user_dir}}/Downloads/google-chrome-stable_current_amd64.deb"
-        force: yes
       become: true
 
 - name: Install FastQC
