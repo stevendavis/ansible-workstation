@@ -384,6 +384,25 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/Parsnp-Linux64-v1.2"
 
+- name: Check for existing Prokka installation
+  stat:
+    path: "{{ansible_user_dir}}/software/prokka/db/kingdom/Bacteria/sprot.phr"
+  register: prokka_db
+
+- name: Install Prokka
+  when: not prokka_db.stat.exists
+  block:
+    - cpanm:
+        name: Bio::Perl
+    - git:
+        repo: https://github.com/tseemann/prokka.git
+        dest: "{{ansible_user_dir}}/software/prokka"
+    - command: "{{ansible_user_dir}}/software/prokka/bin/prokka --setupdb"
+    # Add Prokka to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/prokka/bin"
+
 - name: Install Picard
   block:
     # Create Picard dest directory

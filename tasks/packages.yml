@@ -7,7 +7,9 @@
     - atop
     - autoconf
     - automake
+    - bioperl
     - cinnamon
+    - cpanminus
     - curl
     - dos2unix
     - htop
@@ -22,6 +24,8 @@
     - kdiff3
     - leafpad
     - libcurl4-gnutls-dev
+    - libdatetime-perl
+    - libdigest-md5-perl
     - libffi-dev
     - libfreetype6-dev
     - libncurses5-dev
@@ -31,6 +35,7 @@
     - liblzma-dev
     - liblzo2-dev
     - libbz2-dev
+    - libxml-simple-perl
     - make
     - mafft
     - meld
