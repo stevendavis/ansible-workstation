@@ -35,7 +35,6 @@
     - mafft
     - meld
     - mummer
-    - ncbi-blast+
     - parallel
     - perl
     - perl-doc
