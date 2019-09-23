@@ -97,6 +97,20 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/bcftools-1.8"
 
+- name: Install Blast+
+  block:
+    # Download and uncompress Blast+
+    - unarchive:
+        src="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.9.0/ncbi-blast-2.9.0+-x64-linux.tar.gz"
+        dest="{{ansible_user_dir}}/software"
+        creates="{{ansible_user_dir}}/software/ncbi-blast-2.9.0+"
+        copy=no
+    # Add blast to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/ncbi-blast-2.9.0+/bin"
+
+
 - name: Install Bowtie2
   block:
     # Download and uncompress Bowtie2
