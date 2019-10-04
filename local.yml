@@ -17,8 +17,8 @@
 
   tasks:
     - include: tasks/git.yml
-    - include: tasks/copy.config.files.yml
     - include: tasks/packages.yml
     - include: tasks/download.extract.yml
     - include: tasks/python.yml
     - include: tasks/bashrc.yml
+    - include: tasks/copy.config.files.yml
