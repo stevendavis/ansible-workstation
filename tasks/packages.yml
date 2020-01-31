@@ -30,6 +30,7 @@
     - libfreetype6-dev
     - libncurses5-dev
     - libreadline-dev
+    - libsnappy-dev
     - libsqlite3-dev
     - libssl-dev
     - liblzma-dev
