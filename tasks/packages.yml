@@ -46,6 +46,7 @@
     - perl-doc
     - python-dev
     - python3-tk
+    - screen
     - seq-gen
     - shunit2
     - snp-sites
