@@ -507,6 +507,23 @@
         path: ~/.bashrc
         line: "export PATH=$PATH:~/software/seaview"
 
+- name: Install SeqKit
+  block:
+    # Make the install directory
+    - file:
+        path: "{{ansible_user_dir}}/software/seqkit"
+        state: directory
+    # Download and uncompress SeqKit
+    - unarchive:
+        src="https://github.com/shenwei356/seqkit/releases/download/v0.12.0/seqkit_linux_386.tar.gz"
+        dest="{{ansible_user_dir}}/software/seqkit"
+        creates="{{ansible_user_dir}}/software/seqkit/seqkit"
+        copy=no
+    # Add SeqKit to path in .bashrc if it does not exist
+    - lineinfile:
+        path: ~/.bashrc
+        line: "export PATH=$PATH:~/software/seqkit"
+
 - name: Check for existing smalt installation
   stat:
     path: "{{ansible_user_dir}}/software/smalt-0.7.6"
